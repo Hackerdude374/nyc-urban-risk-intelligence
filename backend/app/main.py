@@ -1,5 +1,10 @@
+import json
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+
 app = FastAPI(
     title="NYC Urban Risk Intelligence API",
     description="Backend API for NYC infrastructure risk analytics, geospatial insights, and ML-powered predictions.",
@@ -34,6 +39,17 @@ def health_check():
 
 @app.get("/risk/summary")
 def get_risk_summary():
+    processed_summary_path = (
+        Path(__file__).resolve().parents[2]
+        / "data"
+        / "processed"
+        / "borough_risk_summary.json"
+    )
+
+    if processed_summary_path.exists():
+        with processed_summary_path.open("r", encoding="utf-8") as file:
+            return json.load(file)
+
     return {
         "city": "New York City",
         "overall_risk_score": 72,
@@ -49,8 +65,8 @@ def get_risk_summary():
             {"name": "Manhattan", "risk_score": 69},
             {"name": "Staten Island", "risk_score": 58},
         ],
+        "source": "Fallback demo data",
     }
-
 
 @app.get("/ai/explain")
 def explain_risk():

@@ -29,3 +29,9 @@ PS:
 cd "D:\Github Projects C\GITHUB PROJECTS DO HERE C\nyc-urban-risk-intelligence\nyc-urban-risk-intelligence\backend"
 venv\Scripts\Activate.ps1
 uvicorn app.main:app --reload
+
+
+cd backend
+venv\Scripts\Activate.ps1
+python -m app.services.ingest_crashes
+python -m app.services.process_crashes

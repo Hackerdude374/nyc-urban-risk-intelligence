@@ -1,0 +1,47 @@
+{
+  "city":"New York City",
+  "overall_risk_score":57,
+  "top_risk_categories":[
+    "recent motor vehicle crashes",
+    "injury-heavy crash clusters",
+    "fatality-weighted traffic risk"
+  ],
+  "boroughs":[
+    {
+      "name":"Brooklyn",
+      "risk_score":100,
+      "crash_count":1273,
+      "injuries":723,
+      "fatalities":3
+    },
+    {
+      "name":"Queens",
+      "risk_score":67,
+      "crash_count":938,
+      "injuries":456,
+      "fatalities":2
+    },
+    {
+      "name":"Manhattan",
+      "risk_score":55,
+      "crash_count":767,
+      "injuries":392,
+      "fatalities":0
+    },
+    {
+      "name":"Bronx",
+      "risk_score":54,
+      "crash_count":662,
+      "injuries":396,
+      "fatalities":2
+    },
+    {
+      "name":"Staten Island",
+      "risk_score":11,
+      "crash_count":150,
+      "injuries":75,
+      "fatalities":0
+    }
+  ],
+  "source":"NYC Open Data - Motor Vehicle Collisions Crashes"
+}
