@@ -290,8 +290,16 @@ function App() {
       <section className="card map-card">
         <div className="card-title">
           <AlertTriangle />
-          <h2>NYC Risk Map</h2>
+          <h2>Borough-Level Crash Risk Map</h2>
         </div>
+
+
+
+        <p className="map-note">
+  Circle size represents each borough’s normalized crash-risk score. Markers are
+  placed at approximate borough centers, not exact crash locations.
+</p>
+
 
         <div className="map-container">
           <MapContainer
