@@ -23,3 +23,9 @@ s
 http://127.0.0.1:8000
 
 http://127.0.0.1:8000/docs
+
+PS:
+
+cd "D:\Github Projects C\GITHUB PROJECTS DO HERE C\nyc-urban-risk-intelligence\nyc-urban-risk-intelligence\backend"
+venv\Scripts\Activate.ps1
+uvicorn app.main:app --reload
