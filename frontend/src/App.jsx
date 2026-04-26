@@ -103,22 +103,24 @@ function App() {
         </article>
 
         <article className="card">
-          <div className="card-title">
-            <MapPinned />
-            <h2>Borough Risk Ranking</h2>
-          </div>
+  <div className="card-title">
+    <MapPinned />
+    <h2>Borough Risk Ranking</h2>
+  </div>
 
-          <div className="chart-wrap">
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={riskSummary.boroughs}>
-                <XAxis dataKey="name" />
-                <YAxis domain={[0, 100]} />
-                <Tooltip />
-                <Bar dataKey="risk_score" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </article>
+  <div className="chart-wrap">
+    <ResponsiveContainer width="100%" height={260}>
+      <BarChart data={riskSummary.boroughs}>
+        <XAxis dataKey="name" />
+        <YAxis domain={[0, 100]} />
+        <Tooltip />
+        <Bar dataKey="risk_score" fill="#38bdf8" />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+</article>
+
+
       </section>
 
       <section className="card map-card">
@@ -135,6 +137,46 @@ function App() {
           </span>
         </div>
       </section>
+
+      <section className="card borough-card">
+  <div className="card-title">
+    <Activity />
+    <h2>Borough Crash Statistics</h2>
+  </div>
+
+  <div className="borough-grid">
+    {riskSummary.boroughs.map((borough) => (
+      <div className="borough-stat" key={borough.name}>
+        <div className="borough-header">
+          <h3>{borough.name}</h3>
+          <span>{borough.risk_score}/100</span>
+        </div>
+
+        <div className="stat-row">
+          <p>Crashes</p>
+          <strong>{borough.crash_count ?? "N/A"}</strong>
+        </div>
+
+        <div className="stat-row">
+          <p>Injuries</p>
+          <strong>{borough.injuries ?? "N/A"}</strong>
+        </div>
+
+        <div className="stat-row">
+          <p>Fatalities</p>
+          <strong>{borough.fatalities ?? "N/A"}</strong>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+
+
+
+
+
+
 
       <section className="card">
         <div className="card-title">
