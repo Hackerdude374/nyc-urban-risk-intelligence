@@ -1,2 +1,2 @@
 # nyc-urban-risk-intelligence
-Full-stack AI dashboard for predicting and explaining NYC crash, flood, and 311 infrastructure risk.
+NYC Urban Risk Intelligence is a full-stack AI and geospatial analytics platform that ingests NYC Open Data, analyzes infrastructure risk patterns, predicts high-risk areas, and explains results through an interactive dashboard.
