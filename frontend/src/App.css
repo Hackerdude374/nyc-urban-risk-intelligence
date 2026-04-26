@@ -283,3 +283,46 @@ button:disabled {
 .leaflet-container {
   background: #0f172a;
 }
+
+
+
+.filter-card {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-card h2 {
+  margin-top: 4px;
+}
+
+select {
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-weight: 700;
+  min-width: 220px;
+}
+
+.selected-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: #020617;
+  border: 1px solid #1f2937;
+  border-radius: 999px;
+  padding: 10px 14px;
+}
+
+.selected-summary strong {
+  color: #38bdf8;
+}
+
+.selected-summary span {
+  color: #cbd5e1;
+}

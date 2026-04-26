@@ -25,6 +25,7 @@ const BOROUGH_COORDINATES = {
 function App() {
   const [riskSummary, setRiskSummary] = useState(null);
   const [aiExplanation, setAiExplanation] = useState(null);
+  const [selectedBorough, setSelectedBorough] = useState("All");
   const [loading, setLoading] = useState(true);
   const [explanationLoading, setExplanationLoading] = useState(false);
   const [error, setError] = useState("");
@@ -66,7 +67,7 @@ function App() {
       </main>
     );
   }
-
+  
   if (error && !riskSummary) {
     return (
       <main className="page">
@@ -75,6 +76,27 @@ function App() {
       </main>
     );
   }
+  
+  const boroughOptions = [
+    "All",
+    ...riskSummary.boroughs.map((borough) => borough.name),
+  ];
+  
+  const visibleBoroughs =
+    selectedBorough === "All"
+      ? riskSummary.boroughs
+      : riskSummary.boroughs.filter(
+          (borough) => borough.name === selectedBorough
+        );
+  
+  const selectedBoroughDetails =
+    selectedBorough === "All"
+      ? null
+      : riskSummary.boroughs.find(
+          (borough) => borough.name === selectedBorough
+        );
+  
+
 
   return (
     <main className="page">
@@ -96,6 +118,41 @@ function App() {
       </header>
 
       {error && <p className="error">{error}</p>}
+
+      <section className="card filter-card">
+  <div>
+    <p className="eyebrow">Interactive Filter</p>
+    <h2>Select Borough</h2>
+  </div>
+
+  <select
+    value={selectedBorough}
+    onChange={(event) => setSelectedBorough(event.target.value)}
+  >
+    {boroughOptions.map((borough) => (
+      <option key={borough} value={borough}>
+        {borough}
+      </option>
+    ))}
+  </select>
+
+  {selectedBoroughDetails && (
+    <div className="selected-summary">
+      <strong>{selectedBoroughDetails.name}</strong>
+      <span>Risk Score: {selectedBoroughDetails.risk_score}/100</span>
+      <span>Crashes: {selectedBoroughDetails.crash_count}</span>
+      <span>Injuries: {selectedBoroughDetails.injuries}</span>
+      <span>Fatalities: {selectedBoroughDetails.fatalities}</span>
+    </div>
+  )}
+</section>
+
+
+
+
+
+
+
 
       <section className="grid">
         <article className="card">
@@ -119,7 +176,7 @@ function App() {
 
   <div className="chart-wrap">
     <ResponsiveContainer width="100%" height={260}>
-      <BarChart data={riskSummary.boroughs}>
+    <BarChart data={visibleBoroughs}>
         <XAxis dataKey="name" />
         <YAxis domain={[0, 100]} />
         <Tooltip />
@@ -150,7 +207,7 @@ function App() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {riskSummary.boroughs.map((borough) => {
+      {visibleBoroughs.map((borough) => {
         const position = BOROUGH_COORDINATES[borough.name];
 
         if (!position) {
@@ -193,7 +250,7 @@ function App() {
   </div>
 
   <div className="borough-grid">
-    {riskSummary.boroughs.map((borough) => (
+    {visibleBoroughs.map((borough) => (
       <div className="borough-stat" key={borough.name}>
         <div className="borough-header">
           <h3>{borough.name}</h3>
