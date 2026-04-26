@@ -10,8 +10,17 @@ import {
 } from "recharts";
 import { Activity, AlertTriangle, MapPinned } from "lucide-react";
 import "./App.css";
+import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 
 const API_BASE_URL = "http://127.0.0.1:8000";
+const BOROUGH_COORDINATES = {
+  Brooklyn: [40.6782, -73.9442],
+  Queens: [40.7282, -73.7949],
+  Manhattan: [40.7831, -73.9712],
+  Bronx: [40.8448, -73.8648],
+  "Staten Island": [40.5795, -74.1502],
+};
+
 
 function App() {
   const [riskSummary, setRiskSummary] = useState(null);
@@ -124,19 +133,58 @@ function App() {
       </section>
 
       <section className="card map-card">
-        <div className="card-title">
-          <AlertTriangle />
-          <h2>Map Placeholder</h2>
-        </div>
+  <div className="card-title">
+    <AlertTriangle />
+    <h2>NYC Risk Map</h2>
+  </div>
 
-        <div className="map-placeholder">
-          <p>NYC geospatial heatmap will go here.</p>
-          <span>
-            Later we’ll connect Mapbox or Leaflet and visualize borough-level
-            risk data.
-          </span>
-        </div>
-      </section>
+  <div className="map-container">
+    <MapContainer
+      center={[40.7128, -74.006]}
+      zoom={10}
+      scrollWheelZoom={false}
+      className="leaflet-map"
+    >
+      <TileLayer
+        attribution='&copy; OpenStreetMap contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+
+      {riskSummary.boroughs.map((borough) => {
+        const position = BOROUGH_COORDINATES[borough.name];
+
+        if (!position) {
+          return null;
+        }
+
+        return (
+          <CircleMarker
+            key={borough.name}
+            center={position}
+            radius={Math.max(10, borough.risk_score / 3)}
+            pathOptions={{
+              color: "#38bdf8",
+              fillColor: "#38bdf8",
+              fillOpacity: 0.45,
+            }}
+          >
+            <Popup>
+              <strong>{borough.name}</strong>
+              <br />
+              Risk Score: {borough.risk_score}/100
+              <br />
+              Crashes: {borough.crash_count ?? "N/A"}
+              <br />
+              Injuries: {borough.injuries ?? "N/A"}
+              <br />
+              Fatalities: {borough.fatalities ?? "N/A"}
+            </Popup>
+          </CircleMarker>
+        );
+      })}
+    </MapContainer>
+  </div>
+</section>
 
       <section className="card borough-card">
   <div className="card-title">

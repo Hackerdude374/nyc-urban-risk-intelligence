@@ -260,3 +260,26 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 }
+
+
+.map-container {
+  height: 360px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #334155;
+}
+
+.leaflet-map {
+  height: 100%;
+  width: 100%;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+.leaflet-container {
+  background: #0f172a;
+}
